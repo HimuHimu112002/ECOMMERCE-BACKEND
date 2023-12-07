@@ -20,10 +20,10 @@ const DataShema = mongoose.Schema({
         type: String,
         required: true
     },
-    image:{
-        type: String,
-        required: true
-    },
+    // image:{
+    //     type: String,
+    //     required: true
+    // },
     star:{
         type: String,
         required: true
@@ -36,14 +36,14 @@ const DataShema = mongoose.Schema({
         type: String,
         required: true
     },
-    categoryID:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
-    brandID:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    }
+    // categoryID:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true
+    // },
+    // brandID:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true
+    // }
 },
 {timestamps: true, versionKey: false}
 );

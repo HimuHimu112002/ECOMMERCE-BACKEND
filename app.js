@@ -1,5 +1,5 @@
 const express = require('express')
-// const router = require('./src/routes/api')
+const router = require('./src/router/api')
 const app = new express();
 
 
@@ -24,10 +24,10 @@ app.use(mongoSanitizer())
 ratelimit({windowMs: 15 * 60 * 100, max: 3000})
 
 // api in-point
-// app.use("/api/v1")
+app.use("/api/v1",router)
 
-// router.use('*', (req, res)=>{
-//     res.status(404).send('404 - Not Found');
-// })
+router.use('*', (req, res)=>{
+    res.status(404).send('404 - Not Found');
+})
 
 module.exports = app
