@@ -36,10 +36,12 @@ const DataShema = mongoose.Schema({
         type: String,
         required: true
     },
-    // categoryID:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true
-    // },
+    categoryID:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category"
+        }
+    ],
     // brandID:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     required: true
@@ -47,5 +49,4 @@ const DataShema = mongoose.Schema({
 },
 {timestamps: true, versionKey: false}
 );
-const ProductModel = mongoose.model('product', DataShema);
-module.exports = ProductModel
+module.exports = mongoose.model('Product', DataShema);

@@ -2,10 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const {ProductCreate,ProductBrandList,ProductCategoryList,ProductSliderList,ProductListByBrang,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductListByRemark,ProductDetails,ProductReview} = require('../controller/ProductController')
+const {CreateCategory} = require('../controller/CategoryController')
 
 router.post('/ProductCreate',ProductCreate)
-router.get('/ProductBrandList',ProductBrandList)
+
+router.post('/CreateCategory',CreateCategory)
 router.get('/ProductCategoryList',ProductCategoryList)
+
+router.get('/ProductBrandList',ProductBrandList)
 router.get('/ProductSliderList',ProductSliderList)
 router.get('/ProductListByBrand/:BrangID',ProductListByBrang)
 router.get('/ProductListByCategory/:CategoryID',ProductListByCategory)

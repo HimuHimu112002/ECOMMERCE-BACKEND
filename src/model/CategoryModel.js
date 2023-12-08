@@ -2,15 +2,18 @@ const mongoose = require('mongoose');
 const DataShema = mongoose.Schema({
     categoryName:{
         type: String,
-        unique: true,
+        //unique: true,
         required: true,
     },
     categoryImg:{
         type: String,
         required: true,
-    }
+    },
+    categoryid:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Product"
+    },
 },
-{timestamps: true, versionKey: false}
+{timestamps: true, versionKey: false} 
 );
-const CategoryModel = mongoose.model('category', DataShema);
-module.exports = CategoryModel
+module.exports = mongoose.model('Category', DataShema); 
