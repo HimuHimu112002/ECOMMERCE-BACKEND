@@ -1,17 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-const {ProductCreate,ProductBrandList,ProductCategoryList,ProductSliderList,ProductListByBrang,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductListByRemark,ProductDetails,ProductReview} = require('../controller/ProductController')
-const {CreateCategory} = require('../controller/CategoryController')
+const {ProductCreate,GetAllProduct,ProductBrandList,ProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductListByRemark,ProductDetails,ProductReview} = require('../controller/ProductController')
+
+const {CreateCategory,GetCategoryList} = require('../controller/CategoryController')
+
+const {CreateBrandList,GetAllBrandList} = require('../controller/BrandController')
 
 router.post('/ProductCreate',ProductCreate)
+router.get('/GetAllProduct',GetAllProduct)
 
 router.post('/CreateCategory',CreateCategory)
-router.get('/ProductCategoryList',ProductCategoryList)
+router.get('/GetAllProductCategoryList',GetCategoryList)
 
-router.get('/ProductBrandList',ProductBrandList)
+router.post('/CreateBrandList',CreateBrandList)
+router.get('/GetProductBrandList',GetAllBrandList)
+
 router.get('/ProductSliderList',ProductSliderList)
-router.get('/ProductListByBrand/:BrangID',ProductListByBrang)
+router.get('/ProductListByBrand/:BrangID',ProductListByBrand)
 router.get('/ProductListByCategory/:CategoryID',ProductListByCategory)
 router.get('/ProductListBySimiler/:KeywordID',ProductListBySimiler)
 router.get('/ProductListByKeyword/:KeywordID',ProductListByKeyword)

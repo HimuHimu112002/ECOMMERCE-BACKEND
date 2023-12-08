@@ -1,12 +1,7 @@
 const ProductModel = require('../model/ProductModel')
+const CategoryModel = require('../model/CategoryModel');
+const BrandModel = require('../model/BrandModel');
 
-async function ProductServiceCreate(req,res){
-    // try{
-        
-    // }catch(e){
-    //     return {status:"fail", e}.toString()
-    // }
-}
 const ProductGet = async() =>{
     try {
         let data = await ProductModel.find({})
@@ -15,4 +10,22 @@ const ProductGet = async() =>{
         return { status: "error", error: e.toString()};
       }
 }
-module.exports = {ProductGet}
+
+const ProductCategoryList = async() =>{
+  try {
+      let data = await CategoryModel.find({})
+      return { status: "Successfully you get all data", data:data};
+    } catch (e){
+      return { status: "error", error: e.toString()};
+  }
+}
+
+const GetProductBrandList = async() =>{
+  try {
+      let data = await BrandModel.find({})
+      return { status: "Successfully you get all data", data:data};
+    } catch (e){
+      return { status: "error", error: e.toString()};
+  }
+}
+module.exports = {ProductGet,ProductCategoryList,GetProductBrandList}

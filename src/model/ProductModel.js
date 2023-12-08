@@ -42,11 +42,14 @@ const DataShema = mongoose.Schema({
             ref: "Category"
         }
     ],
-    // brandID:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true
-    // }
+    brandID:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:  "brand"
+        }
+    ]
 },
+
 {timestamps: true, versionKey: false}
 );
 module.exports = mongoose.model('Product', DataShema);

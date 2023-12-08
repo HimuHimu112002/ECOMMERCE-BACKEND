@@ -8,7 +8,11 @@ const DataShema = mongoose.Schema({
     brandImg:{
         type: String,
         required: true,
-    }
+    },
+    brandid:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Product"
+    },
 },
 {timestamps: true, versionKey: false}
 );
