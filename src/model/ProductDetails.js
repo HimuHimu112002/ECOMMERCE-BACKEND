@@ -18,15 +18,6 @@ const DataShema = mongoose.Schema({
     img5:{
         type: String,
     },
-    img6:{
-        type: String,
-    },
-    img7:{
-        type: String,
-    },
-    img8:{
-        type: String,
-    },
     description:{
         type: String,
         required: true
@@ -39,10 +30,12 @@ const DataShema = mongoose.Schema({
         type: String,
         required: true
     },
-    productID:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
+    productID:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }
+    ],
    
 },
 {timestamps: true, versionKey: false}
