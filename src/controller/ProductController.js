@@ -1,4 +1,4 @@
-const {ProductGet,GetProductDetails, GetProductSlide} = require('../services/ProductServices')
+const {ProductGet,GetProductDetails, GetProductSlide, GetProductBycategory, GetProductByBrand,GetProductByRemark,GetProductBySimiler,GetProductByKeyword} = require('../services/ProductServices')
 const ProductModel = require('../model/ProductModel')
 const ProductDetails = require('../model/ProductDetails')
 const productslidersModel = require("../model/ProductSlideModel")
@@ -45,10 +45,9 @@ async function  ProductDiscription(req, res){
 }
 
 async function GetDiscription(req, res){
-    let result = await GetProductDetails()
+    let result = await GetProductDetails(req)
     return res.status(200).json(result)
 }
-
 
 async function  ProductSliderList(req, res) {
     const {title,description,price,image,productID} = req.body
@@ -61,9 +60,7 @@ async function  ProductSliderList(req, res) {
     })   
     productSlide.save()
     res.send({success: "ProductSlide Created Successfully"})
-
     await productslidersModel.findOneAndUpdate({_id: productSlide.productID}, {$push:{productID:productSlide._id}}, {new: true})
-
 }
 
 async function  GetProductSliderList(req, res) {
@@ -72,22 +69,30 @@ async function  GetProductSliderList(req, res) {
 }
 
 async function  ProductListByBrand(req, res) {
-    
+    let result = await GetProductByBrand(req)
+    return res.status(200).json(result)
 }
 
 async function  ProductListByCategory(req, res) {
-    
+    let result = await GetProductBycategory(req)
+    return res.status(200).json(result)
 }
 
 async function  ProductListBySimiler(req, res) {
-    
+    let result = await GetProductBySimiler(req)
+    return res.status(200).json(result)
 }
 
 async function  ProductListByKeyword(req, res) {
-    
+    let result = await GetProductByKeyword(req)
+    return res.status(200).json(result)
 }
 
 async function  ProductListByRemark(req, res) {
+
+}
+
+async function  ProductListByRivew(req, res) {
     
 }
 
