@@ -1,6 +1,6 @@
 const BrandModel = require('../model/BrandModel')
 const ProductModel = require('../model/ProductModel')
-const { ProductCategoryList, GetProductBrandList } = require("../services/ProductServices")
+const {GetProductBrandList } = require("../services/ProductServices")
 
 async function CreateBrandList(req, res) {
     const {brandName,brandImg,brandid} = req.body

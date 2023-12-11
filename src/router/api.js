@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {ProductCreate,GetAllProduct,ProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductListByRemark,ProductDiscription,GetDiscription,ProductReview} = require('../controller/ProductController')
+const {ProductCreate,GetAllProduct,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductListByRemark,ProductDiscription,GetDiscription,ProductReview} = require('../controller/ProductController')
 
 const {CreateCategory,GetCategoryList} = require('../controller/CategoryController')
-
 const {CreateBrandList,GetAllBrandList} = require('../controller/BrandController')
+const {CreateFeatured,GetAllFeaturedList} = require('../controller/FeaturedController')
 
 router.post('/ProductCreate',ProductCreate)
 router.get('/GetAllProduct',GetAllProduct)
@@ -20,7 +20,12 @@ router.post('/ProductDiscription',ProductDiscription)
 router.get('/GetAllProductDiscription',GetDiscription)
 //router.get('/GetAllProductDiscription/:ProductID',GetDiscription)
 
-// router.get('/ProductSliderList',ProductSliderList)
+router.post('/ProductSliderList',ProductSliderList)
+router.get('/GetProductSliderList',GetProductSliderList)
+
+router.post('/CreateFeatured',CreateFeatured)
+router.get('/GetAllFeaturedList',GetAllFeaturedList)
+
 // router.get('/ProductListByBrand/:BrangID',ProductListByBrand)
 // router.get('/ProductListByCategory/:CategoryID',ProductListByCategory)
 // router.get('/ProductListBySimiler/:KeywordID',ProductListBySimiler)

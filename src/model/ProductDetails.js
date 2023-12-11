@@ -40,5 +40,6 @@ const DataShema = mongoose.Schema({
 },
 {timestamps: true, versionKey: false}
 );
+
 const ProductDetailModel = mongoose.model('ProductDetail', DataShema);
 module.exports = ProductDetailModel

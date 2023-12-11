@@ -1,6 +1,7 @@
-const {ProductGet,GetProductDetails} = require('../services/ProductServices')
+const {ProductGet,GetProductDetails, GetProductSlide} = require('../services/ProductServices')
 const ProductModel = require('../model/ProductModel')
 const ProductDetails = require('../model/ProductDetails')
+const productslidersModel = require("../model/ProductSlideModel")
 
 async function  ProductCreate(req,res){
     const {title,shortDes,price,discount,discountPrice,image,star,stock,remark} = req.body
@@ -46,12 +47,28 @@ async function  ProductDiscription(req, res){
 async function GetDiscription(req, res){
     let result = await GetProductDetails()
     return res.status(200).json(result)
-    
 }
 
 
 async function  ProductSliderList(req, res) {
-    
+    const {title,description,price,image,productID} = req.body
+    let productSlide = new productslidersModel({
+        title,
+        description,
+        price,
+        image,
+        productID
+    })   
+    productSlide.save()
+    res.send({success: "ProductSlide Created Successfully"})
+
+    await productslidersModel.findOneAndUpdate({_id: productSlide.productID}, {$push:{productID:productSlide._id}}, {new: true})
+
+}
+
+async function  GetProductSliderList(req, res) {
+    let result = await GetProductSlide()
+    return res.status(200).json(result)
 }
 
 async function  ProductListByBrand(req, res) {
@@ -74,4 +91,4 @@ async function  ProductListByRemark(req, res) {
     
 }
 
-module.exports = {ProductCreate,GetAllProduct,ProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductListByRemark,GetDiscription,ProductDiscription}
+module.exports = {ProductCreate,GetAllProduct,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductListByRemark,GetDiscription,ProductDiscription}

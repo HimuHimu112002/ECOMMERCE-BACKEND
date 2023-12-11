@@ -2,6 +2,7 @@ const ProductModel = require('../model/ProductModel')
 const CategoryModel = require('../model/CategoryModel');
 const BrandModel = require('../model/BrandModel');
 const ProductDetail = require('../model/ProductDetails')
+const ProductSlideModel = require('../model/ProductSlideModel')
 
 const ProductGet = async() =>{
     try {
@@ -30,7 +31,6 @@ const GetProductBrandList = async() =>{
   }
 }
 
-
 const GetProductDetails = async(req,res) =>{
   try {
       let data = await ProductDetail.find({}).populate("productID")
@@ -40,4 +40,13 @@ const GetProductDetails = async(req,res) =>{
   }
 }
 
-module.exports = {ProductGet,ProductCategoryList,GetProductBrandList,GetProductDetails}
+const GetProductSlide = async(req,res) =>{
+  try{
+    let data = await ProductSlideModel.find({}).populate("productID")
+    return { status: "Successfully you get all data", data:data};
+  }catch (e){
+    return { status: "error", error: e.toString()};
+  }
+}
+
+module.exports = {ProductGet,ProductCategoryList,GetProductBrandList,GetProductDetails,GetProductSlide}
