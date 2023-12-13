@@ -9,7 +9,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const ProductGet = async() =>{
     try {
-        let data = await ProductModel.find({})
+        let data = await ProductModel.find({}).populate("categoryID").populate("brandID")
         return { status: "Successfully you get all data", data:data};
       } catch (e) {
         return { status: "error", error: e.toString()};
@@ -18,7 +18,7 @@ const ProductGet = async() =>{
 
 const ProductCategoryList = async() =>{
   try {
-      let data = await CategoryModel.find({})
+      let data = await CategoryModel.find({}).populate("categoryid")
       return { status: "Successfully you get all data", data:data};
     } catch (e){
       return { status: "error", error: e.toString()};
@@ -27,7 +27,7 @@ const ProductCategoryList = async() =>{
 
 const GetProductBrandList = async() =>{
   try {
-      let data = await BrandModel.find({})
+      let data = await BrandModel.find({}).populate("brandid")
       return { status: "Successfully you get all data", data:data};
     } catch (e){
       return { status: "error", error: e.toString()};
@@ -54,12 +54,7 @@ const GetProductDetails = async(req,res) =>{
   }catch(e){
     return {status:"fail",data:e}.toString()
   }
-  // try {
-  //     let data = await ProductDetail.find({}).populate("productID")
-  //     return { status: "Successfully you get all data", data:data};
-  //   } catch (e){
-  //     return { status: "error", error: e.toString()};
-  // }
+  
 }
 
 const GetProductSlide = async(req,res) =>{

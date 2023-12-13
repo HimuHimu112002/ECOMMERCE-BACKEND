@@ -8,7 +8,7 @@ const DataShema = mongoose.Schema({
     },
     otp:{
         type: String,
-        required: true
+        required: true,
     },
     
 },

@@ -8,6 +8,11 @@ const {CreateBrandList,GetAllBrandList} = require('../controller/BrandController
 const {CreateFeatured,GetAllFeaturedList} = require('../controller/FeaturedController')
 const {CreateRemark,GetRemarkList} = require('../controller/RemarkController')
 
+
+const {UserLogin} = require('../controller/UserController');
+const { OtpMatchController } = require('../controller/OtpMatch');
+
+
 router.post('/ProductCreate',ProductCreate)
 router.get('/GetAllProduct',GetAllProduct)
 
@@ -34,6 +39,10 @@ router.get('/ProductListBySimiler/:CategoryID',ProductListBySimiler)
 
 router.post('/CreateRemark',CreateRemark)
 router.get('/GetRemarkList',GetRemarkList)
+
+
+router.post("/UserLogin",UserLogin)
+router.post("/OtpMatch/:email",OtpMatchController)
 
 // router.get('/ProductReview/:ProductID',ProductReview)
 
