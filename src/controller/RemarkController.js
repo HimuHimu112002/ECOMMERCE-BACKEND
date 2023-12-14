@@ -6,7 +6,6 @@ async function CreateRemark(req, res) {
         remarkid
     })   
     remarkModel.save()
-
     // await RemarkModel.findOneAndUpdate({_id: remarkModel.remarkid}, {$push:{remarkid:remark._id}}, {new: true})
     res.send({success: "Remark Created Successfull"})
     
@@ -15,6 +14,5 @@ async function CreateRemark(req, res) {
 async function GetRemarkList(req, res) {
     let result = await RemarkModel.find({})
     res.send(result)
-    
 }
 module.exports = {CreateRemark,GetRemarkList}

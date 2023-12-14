@@ -1,4 +1,5 @@
 const {DecodeToken} = require("../utility/TokenHelper");
+
 module.exports=(req,res,next)=>{
 
     // Receive Token
@@ -7,10 +8,8 @@ module.exports=(req,res,next)=>{
         token = req.cookies['token']
     }
 
-
   // Token Decode
   let decoded=DecodeToken(token)
-
 
   // Request Header Email+UserID Add
   if(decoded === null){

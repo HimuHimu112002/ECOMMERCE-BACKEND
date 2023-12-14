@@ -88,8 +88,4 @@ async function  ProductListByKeyword(req, res) {
     return res.status(200).json(result)
 }
 
-async function  ProductListByRivew(req, res) {
-    
-}
-
 module.exports = {ProductCreate,GetAllProduct,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,GetDiscription,ProductDiscription}

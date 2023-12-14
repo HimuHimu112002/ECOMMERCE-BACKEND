@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const DataShema = mongoose.Schema({
     categoryName:{
         type: String,
-        //unique: true,
+        unique: true,
         required: true,
     },
     categoryImg:{

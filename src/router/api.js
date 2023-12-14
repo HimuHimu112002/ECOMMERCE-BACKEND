@@ -10,7 +10,8 @@ const {CreateRemark,GetRemarkList} = require('../controller/RemarkController')
 
 
 const {UserLogin} = require('../controller/UserController');
-const { OtpMatchController } = require('../controller/OtpMatch');
+const { OtpMatchController,UserLogout} = require('../controller/OtpMatch');
+const Authentication = require('../middleware/Authentication');
 
 
 router.post('/ProductCreate',ProductCreate)
@@ -43,6 +44,7 @@ router.get('/GetRemarkList',GetRemarkList)
 
 router.post("/UserLogin",UserLogin)
 router.post("/OtpMatch/:email",OtpMatchController)
+router.post("/UserLogout",Authentication,UserLogout)
 
 // router.get('/ProductReview/:ProductID',ProductReview)
 
