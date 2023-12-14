@@ -9,7 +9,7 @@ const {CreateFeatured,GetAllFeaturedList} = require('../controller/FeaturedContr
 const {CreateRemark,GetRemarkList} = require('../controller/RemarkController')
 
 
-const {UserLogin} = require('../controller/UserController');
+const {UserLogin,UserProfile,ReadProfile} = require('../controller/UserController');
 const { OtpMatchController,UserLogout} = require('../controller/OtpMatch');
 const Authentication = require('../middleware/Authentication');
 
@@ -45,6 +45,11 @@ router.get('/GetRemarkList',GetRemarkList)
 router.post("/UserLogin",UserLogin)
 router.post("/OtpMatch/:email",OtpMatchController)
 router.post("/UserLogout",Authentication,UserLogout)
+
+
+router.post("/CreateUserProfile",Authentication,UserProfile)
+router.get("/ReadProfile",ReadProfile)
+
 
 // router.get('/ProductReview/:ProductID',ProductReview)
 

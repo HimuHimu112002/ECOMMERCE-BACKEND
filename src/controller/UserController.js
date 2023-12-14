@@ -1,6 +1,6 @@
 const EmailSend = require('../utility/EmailTampler');
 const UserModel = require("../model/UserModel")
-
+const ProfileModel = require("../model/ProfileModel")
 async function UserLogin(req, res){
     try{
 
@@ -32,8 +32,30 @@ async function UserLogin(req, res){
             
         }
     }catch(e){
-        return {status:"fail", message:"Something Went Wrong",e}
+        res.send({status:"fail", message:"Something Went Wrong",e})
     }
     
 }
-module.exports = {UserLogin};
+
+async function UserProfile(req, res){
+    try {
+        let user_id=req.headers.user_id;
+        let reqBody=req.body;
+        reqBody.userID=user_id;
+        await ProfileModel.updateOne({userID:user_id},{$set:reqBody},{upsert:true})
+        res.send({status:"success", message:"Profile Save Success"})
+    }catch (e) {
+        res.send({status:"fail", message:"Something Went Wrong"})
+    }
+}
+async function ReadProfile(req, res){
+    try {
+        let user_id=req.headers.user_id;
+        let result= await ProfileModel.find({userID:user_id})
+        res.send({status:"success", data:result})
+    }catch (e) {
+        res.send({status:"fail", message:"Something Went Wrong"})
+    }
+}
+
+module.exports = {UserLogin,UserProfile,ReadProfile};
