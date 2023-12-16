@@ -14,6 +14,8 @@ const { OtpMatchController,UserLogout} = require('../controller/OtpMatch');
 const Authentication = require('../middleware/Authentication');
 
 
+const {WishList,SaveWishList,RemoveWishList} = require('../controller/WishListController')
+
 router.post('/ProductCreate',ProductCreate)
 router.get('/GetAllProduct',GetAllProduct)
 
@@ -50,6 +52,11 @@ router.post("/UserLogout",Authentication,UserLogout)
 router.post("/CreateUserProfile",Authentication,UserProfile)
 router.get("/ReadProfile",ReadProfile)
 
+
+
+router.get("/WishList",Authentication,WishList)
+router.post("/SaveWishList",Authentication,SaveWishList)
+router.post("/RemoveWishList",Authentication,RemoveWishList)
 
 // router.get('/ProductReview/:ProductID',ProductReview)
 
