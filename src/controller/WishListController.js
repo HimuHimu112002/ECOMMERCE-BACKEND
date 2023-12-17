@@ -5,14 +5,10 @@ exports.WishList=async(req,res)=>{
     return res.status(200).json(result)
 }
 
-
-
 exports.SaveWishList=async(req,res)=>{
     let result=await SaveWishListService(req);
     return res.status(200).json(result)
 }
-
-
 
 exports.RemoveWishList=async(req,res)=>{
     let result=await RemoveWishListService(req);

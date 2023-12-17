@@ -17,8 +17,8 @@ let OtpMatchController = async (req, res)=>{
             //await UserModel.updateOne({email:email},{$set:{otp:"0"}})
 
             // set cookie
-            let cookieOptin = {expires:new Date(Date.now()+24*6060*1000), httpOnly:false}
-            res.cookie('token',cookieOptin)
+            //let cookieOptin = {expires:new Date(Date.now()+24*6060*1000), httpOnly:false}
+            res.cookie('token',token)
 
             res.json({status:"success", message:"Valid Otp Login Successfull",token})
         }else{
