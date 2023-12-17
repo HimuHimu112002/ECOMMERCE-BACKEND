@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {ProductCreate,GetAllProduct,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductDiscription,GetDiscription,ProductReview} = require('../controller/ProductController')
+const {ProductCreate,GetAllProduct,productDelete,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductDiscription,GetDiscription,ProductReview} = require('../controller/ProductController')
 
 const {CreateCategory,GetCategoryList} = require('../controller/CategoryController')
 const {CreateBrandList,GetAllBrandList} = require('../controller/BrandController')
@@ -15,9 +15,11 @@ const Authentication = require('../middleware/Authentication');
 
 
 const {WishList,SaveWishList,RemoveWishList} = require('../controller/WishListController')
+const {SaveCart,RemoveCart} = require("../controller/CartLIstController")
 
 router.post('/ProductCreate',ProductCreate)
 router.get('/GetAllProduct',GetAllProduct)
+router.post('/productDelete/:id',productDelete)
 
 router.post('/CreateCategory',CreateCategory)
 router.get('/GetAllProductCategoryList',GetCategoryList)
@@ -57,6 +59,11 @@ router.get("/ReadProfile",ReadProfile)
 router.get("/WishList",Authentication,WishList)
 router.post("/SaveWishList",Authentication,SaveWishList)
 router.post("/RemoveWishList",Authentication,RemoveWishList)
+
+
+router.get("/WishList",Authentication,WishList)
+router.post("/SaveCart",Authentication,SaveCart)
+router.post("/RemoveCart",Authentication,RemoveCart)
 
 // router.get('/ProductReview/:ProductID',ProductReview)
 

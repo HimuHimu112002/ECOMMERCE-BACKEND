@@ -26,6 +26,17 @@ async function  GetAllProduct(req,res){
     return res.status(200).json(result)
 }
 
+async function productDelete(req, res){
+    let deletData = req.params.id;
+    let data = await ProductModel.findByIdAndDelete(deletData)
+    console.log(data)
+    // try {
+    //     let data = await ProductModel.findByIdAndDelete({_id: id});
+    //     res.status(200).json({ status: "Success", data: data });
+    // } catch (e) {
+    //     res.status(200).json({ status: "fail", error: e.toString()});
+    // }
+}
 async function  ProductDiscription(req, res){
     const {img1,img2,img3,img4,img5,description,color,size,productID} = req.body
     let productDis = new ProductDetails({
@@ -88,4 +99,4 @@ async function  ProductListByKeyword(req, res) {
     return res.status(200).json(result)
 }
 
-module.exports = {ProductCreate,GetAllProduct,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,GetDiscription,ProductDiscription}
+module.exports = {ProductCreate,GetAllProduct,productDelete,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,GetDiscription,ProductDiscription}
