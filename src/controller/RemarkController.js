@@ -1,4 +1,5 @@
 const RemarkModel = require('../model/RemarkModel')
+
 async function CreateRemark(req, res) {
     const {remark,remarkid} = req.body
     let remarkModel = new RemarkModel({
@@ -15,4 +16,5 @@ async function GetRemarkList(req, res) {
     let result = await RemarkModel.find({})
     res.send(result)
 }
+
 module.exports = {CreateRemark,GetRemarkList}

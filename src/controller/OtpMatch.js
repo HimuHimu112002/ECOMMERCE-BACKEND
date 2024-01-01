@@ -1,6 +1,7 @@
 const UserModel = require("../model/UserModel");
 const { EncodeToken } = require("../utility/TokenHelper");
 //const EncodeToken = require('../utility/TokenHelper')
+
 let OtpMatchController = async (req, res)=>{
     let {otp} = req.body
     let email = req.params.email;
@@ -33,4 +34,5 @@ const UserLogout = async(req, res)=>{
     res.cookie('token',cookieOptin)
     res.send({status: "success"})
 }
+
 module.exports = {OtpMatchController,UserLogout}

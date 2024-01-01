@@ -133,8 +133,8 @@ const GetProductByKeyword = async(req,res) =>{
 
 const GetProductByBrand = async(req,res) =>{
   try {
-    let BrandID = new ObjectId(req.params.BrandID);
-    console.log("Himu222",req.params.BrandID)
+    let BrandID = new ObjectId(req.params.BrangID);
+    console.log("Himu222",req.params.BrangID)
     let MatchStage={$match:{brandID:BrandID}}
     let JoinWithBrandStage= {$lookup:{from:"brands",localField:"brandID",foreignField:"_id",as:"brand"}};
     let JoinWithCategoryStage={$lookup:{from:"categories",localField:"categoryID",foreignField:"_id",as:"category"}};
@@ -143,8 +143,12 @@ const GetProductByBrand = async(req,res) =>{
     let ProjectionStage={$project:{'brand._id':0,'category._id':0,'categoryID':0,'brandID':0}}
 
     let data= await  ProductModel.aggregate([
-        MatchStage, JoinWithBrandStage,JoinWithCategoryStage,
-        UnwindBrandStage,UnwindCategoryStage, ProjectionStage
+        MatchStage, 
+        JoinWithBrandStage,
+        JoinWithCategoryStage,
+        UnwindBrandStage,
+        UnwindCategoryStage, 
+        ProjectionStage
     ])
       return {status:"success",data:data}
     }catch (e) {

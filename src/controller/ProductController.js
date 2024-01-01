@@ -37,6 +37,7 @@ async function productDelete(req, res){
     //     res.status(200).json({ status: "fail", error: e.toString()});
     // }
 }
+
 async function  ProductDiscription(req, res){
     const {img1,img2,img3,img4,img5,description,color,size,productID} = req.body
     let productDis = new ProductDetails({

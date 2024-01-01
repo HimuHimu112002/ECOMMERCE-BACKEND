@@ -1,4 +1,5 @@
 const FeaturesModel = require('../model/FeaturesModel')
+
 async function CreateFeatured(req, res) {
 
     const {name,description,img} = req.body
@@ -17,4 +18,5 @@ async function GetAllFeaturedList(req, res) {
     res.send(data)
     
 }
+
 module.exports = {CreateFeatured,GetAllFeaturedList}

@@ -1,6 +1,7 @@
 const EmailSend = require('../utility/EmailTampler');
 const UserModel = require("../model/UserModel")
 const ProfileModel = require("../model/ProfileModel")
+
 async function UserLogin(req, res){
     try{
 
@@ -48,6 +49,7 @@ async function UserProfile(req, res){
         res.send({status:"fail", message:"Something Went Wrong"})
     }
 }
+
 async function ReadProfile(req, res){
     try {
         let user_id=req.headers.user_id;
