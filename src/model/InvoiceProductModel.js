@@ -4,11 +4,11 @@ const DataShema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    invoiceID:{
+    productID:{
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    productID:{
+    invoiceID:{
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },

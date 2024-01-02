@@ -13,8 +13,13 @@ const {UserLogin,UserProfile,ReadProfile} = require('../controller/UserControlle
 const { OtpMatchController,UserLogout} = require('../controller/OtpMatch');
 const Authentication = require('../middleware/Authentication');
 
+
 const {WishList,SaveWishList,RemoveWishList} = require('../controller/WishListController')
 const {CartServices,UpdateCartList,SaveCart,RemoveCart} = require("../controller/CartLIstController")
+
+
+const{CreateInvoiceService,PaymentFailService,PaymentCancelService,PaymentIPNService,
+PaymentSuccessService,InvoiceListService,InvoiceProductListService,} = require('../controller/InvoiceController')
 
 // Product=============================
 router.post('/ProductCreate',ProductCreate)
@@ -66,5 +71,17 @@ router.post("/SaveCart",Authentication,SaveCart)
 router.post('/UpdateCartList/:cartID',Authentication,UpdateCartList)
 router.get('/CartServices',Authentication,CartServices)
 router.post("/RemoveCart",Authentication,RemoveCart)
+
+
+// Invoice and payment =========================
+
+router.get('/CreateInvoice',Authentication,CreateInvoiceService)
+router.get('/InvoiceList',Authentication,InvoiceListService)
+router.get('/InvoiceProductList/:invoice_id',Authentication,InvoiceProductListService)
+
+router.post('/PaymentSuccess/:trxID',PaymentSuccessService)
+router.post('/PaymentCancel/:trxID',PaymentCancelService)
+router.post('/PaymentFail/:trxID',PaymentFailService)
+router.post('/PaymentIPN/:trxID',PaymentIPNService)
 
 module.exports = router
