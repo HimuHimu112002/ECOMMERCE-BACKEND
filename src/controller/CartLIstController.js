@@ -89,7 +89,7 @@ async function SaveCart(req, res) {
     let user_id = req.headers.user_id;
     let reqBody = req.body;
     reqBody.userID = user_id;
-    await CartModel.updateOne(reqBody);
+    await CartModel.create(reqBody);
     res.send({ status: "success", message: "Cart List Save Success" });
   } catch (e) {
     res.send({ status: "fail", message: "Something Went Wrong !" });

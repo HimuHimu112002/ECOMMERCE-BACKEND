@@ -9,6 +9,7 @@ const PaymentSettingModel = require("../model/PaymentSettingModel");
 const ObjectID = mongoose.Types.ObjectId;
 
 const CreateInvoiceService = async (req, res) => {
+
   // =============Step 01: Calculate Total Payable & Vat====================
 
   let user_id = new ObjectID(req.headers.user_id);
@@ -16,7 +17,7 @@ const CreateInvoiceService = async (req, res) => {
 
   let matchStage = { $match: { userID: user_id } };
   let JoinStageProduct = {
-    $lookup: {
+    $lookup: { // join korar jonno lookup use kora hoi
       from: "products",
       localField: "productID",
       foreignField: "_id",
@@ -48,7 +49,9 @@ const CreateInvoiceService = async (req, res) => {
   // =============Step 02: Prepare  Customer Details & Shipping Details============
 
   let Profile = await ProfileModel.aggregate([{ $match: { userID: user_id } }]);
+
   let cus_details = `Name: ${Profile[0].cus_name}, Email: ${cus_email}, Address: ${Profile[0].cus_add}, Phone: ${Profile[0].cus_phone}`;
+
   let ship_details = `Name: ${Profile[0].ship_name}, City: ${Profile[0].ship_city}, Address: ${Profile[0].ship_add}, Phone: ${Profile[0].ship_phone}`;
 
   // =============Step 03: Transaction & Other's ID===============================
@@ -130,6 +133,8 @@ const CreateInvoiceService = async (req, res) => {
   form.append("ship_state", Profile[0].ship_state);
   form.append("ship_country", Profile[0].ship_country);
   form.append("ship_postcode", Profile[0].ship_postcode);
+
+
   form.append("product_name", "product_name");
   form.append("product_category", "category");
   form.append("product_profile", "profile");
@@ -138,9 +143,10 @@ const CreateInvoiceService = async (req, res) => {
   let SSLRes = await axios.post(PaymentSetting[0]["init_url"], form);
 
   res.send({ status: "success", data: SSLRes.data });
+  //res.send({ status: "success", data: Profile });
 };
 
-const PaymentFailService = async (req) => {
+const PaymentFailService = async (req,res) => {
   try {
     let trxID = req.params.trxID;
     await InvoiceModel.updateOne(
@@ -148,13 +154,13 @@ const PaymentFailService = async (req) => {
       { payment_status: "fail" }
     );
     res.send({ status: "payment fail" });
-    return res.redirect('localhost:5173/profile');
+    return res.redirect('localhost:5000/profile');
   } catch (e) {
     res.send({ status: "fail", message: "Something Went Wrong" });
   }
 };
 
-const PaymentCancelService = async (req) => {
+const PaymentCancelService = async (req,res) => {
   try {
     let trxID = req.params.trxID;
     await InvoiceModel.updateOne(
@@ -162,13 +168,13 @@ const PaymentCancelService = async (req) => {
       { payment_status: "cancel" }
     );
     res.send({ status: "payment fail" })
-    return res.redirect('localhost:5173/profile');
+    return res.redirect('localhost:5000/profile');
   } catch (e) {
     res.send({ status: "fail", message: "Something Went Wrong" })
   }
 };
 
-const PaymentIPNService = async (req) => {
+const PaymentIPNService = async (req,res) => {
   try {
     let trxID = req.params.trxID;
     let status = req.body["status"];
@@ -182,7 +188,7 @@ const PaymentIPNService = async (req) => {
   }
 };
 
-const PaymentSuccessService = async (req) => {
+const PaymentSuccessService = async (req,res) => {
   try {
     let trxID = req.params.trxID;
     await InvoiceModel.updateOne(
@@ -190,13 +196,13 @@ const PaymentSuccessService = async (req) => {
       { payment_status: "success" }
     );
     res.send({status: "payment success" })
-    return res.redirect('localhost:5173/profile');
+    return res.redirect('localhost:5000/profile');
   } catch (e) {
     res.send({ status: "fail", message: "Something Went Wrong" })
   }
 };
 
-const InvoiceListService = async (req) => {
+const InvoiceListService = async (req,res) => {
   try {
     let user_id = req.headers.user_id;
     let invoice = await InvoiceModel.find({ userID: user_id });
@@ -206,7 +212,7 @@ const InvoiceListService = async (req) => {
   }
 };
 
-const InvoiceProductListService = async (req) => {
+const InvoiceProductListService = async (req,res) => {
   try {
     let user_id = new ObjectID(req.headers.user_id);
     let invoice_id = new ObjectID(req.params.invoice_id);
