@@ -10,7 +10,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const ProductGet = async() =>{
     try {
         let data = await ProductModel.find({}).populate("categoryID").populate("brandID")
-        return { status: "Successfully you get all data", data:data};
+        return { status: "success", data:data};
       } catch (e) {
         return { status: "error", error: e.toString()};
       }
@@ -19,7 +19,7 @@ const ProductGet = async() =>{
 const ProductCategoryList = async() =>{
   try {
       let data = await CategoryModel.find({}).populate("categoryid")
-      return { status: "Successfully you get all data", data:data};
+      return { status: "success", data:data};
     } catch (e){
       return { status: "error", error: e.toString()};
   }
@@ -28,7 +28,7 @@ const ProductCategoryList = async() =>{
 const GetProductBrandList = async() =>{
   try {
       let data = await BrandModel.find({}).populate("brandid")
-      return { status: "Successfully you get all data", data:data};
+      return { status: "success", data:data};
     } catch (e){
       return { status: "error", error: e.toString()};
   }
@@ -60,7 +60,7 @@ const GetProductDetails = async(req,res) =>{
 const GetProductSlide = async(req,res) =>{
   try{
     let data = await ProductSlideModel.find({}).populate("productID")
-    return { status: "Successfully you get all data", data:data};
+    return { status: "success", data:data};
   }catch (e){
     return { status: "error", error: e.toString()};
   }
@@ -177,4 +177,51 @@ const GetProductByRemark = async(req,res) =>{
     }
 }
 
-module.exports = {ProductGet,ProductCategoryList,GetProductBrandList,GetProductByKeyword,GetProductDetails,GetProductSlide,GetProductBycategory,GetProductByBrand,GetProductByRemark,GetProductBySimiler}
+const ListByFilterService = async (req) => {
+  try {
+
+      let matchConditions = {};
+      if (req.body['categoryID']) {
+          matchConditions.categoryID = new ObjectId(req.body['categoryID']);
+      }
+      if (req.body['brandID']) {
+          matchConditions.brandID = new ObjectId(req.body['brandID']);
+      }
+      let MatchStage = { $match: matchConditions };
+
+
+      let AddFieldsStage = {
+          $addFields: { numericPrice: { $toInt: "$price" }}
+      };
+      let priceMin = parseInt(req.body['priceMin']);
+      let priceMax = parseInt(req.body['priceMax']);
+      let PriceMatchConditions = {};
+      if (!isNaN(priceMin)) {
+          PriceMatchConditions['numericPrice'] = { $gte: priceMin };
+      }
+      if (!isNaN(priceMax)) {
+          PriceMatchConditions['numericPrice'] = { ...(PriceMatchConditions['numericPrice'] || {}), $lte: priceMax };
+      }
+      let PriceMatchStage = { $match: PriceMatchConditions };
+
+      let JoinWithBrandStage= {$lookup:{from:"brands",localField:"brandID",foreignField:"_id",as:"brand"}};
+      let JoinWithCategoryStage={$lookup:{from:"categories",localField:"categoryID",foreignField:"_id",as:"category"}};
+      let UnwindBrandStage={$unwind:"$brand"}
+      let UnwindCategoryStage={$unwind:"$category"}
+      let ProjectionStage={$project:{'brand._id':0,'category._id':0,'categoryID':0,'brandID':0}}
+
+      let data= await  ProductModel.aggregate([
+          MatchStage,
+          AddFieldsStage,
+          PriceMatchStage,
+          JoinWithBrandStage,JoinWithCategoryStage,
+          UnwindBrandStage,UnwindCategoryStage, ProjectionStage
+      ])
+      return {status:"success",data:data}
+
+  }catch (e) {
+      return {status:"fail",data:e}.toString()
+  }
+}
+
+module.exports = {ProductGet,ProductCategoryList,GetProductBrandList,GetProductByKeyword,GetProductDetails,GetProductSlide,GetProductBycategory,GetProductByBrand,GetProductByRemark,GetProductBySimiler,ListByFilterService}

@@ -14,9 +14,13 @@ async function CreateFeatured(req, res) {
 }
 
 async function GetAllFeaturedList(req, res) {
-    let data = await FeaturesModel.find({})
-    res.send(data)
-    
+    try{
+        let data = await FeaturesModel.find({})
+        res.send({ status: "success", data:data});
+      }catch (e){
+        res.send({ status: "error", error: e.toString()});
+      }
+
 }
 
 module.exports = {CreateFeatured,GetAllFeaturedList}

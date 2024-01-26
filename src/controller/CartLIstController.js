@@ -5,6 +5,7 @@ const ObjectID = mongoose.Types.ObjectId;
 
 async function CartServices(req, res) {
   try {
+
     let user_id = new ObjectID(req.headers.user_id);
     let matchStage = { $match: { userID: user_id } };
 
@@ -36,6 +37,7 @@ async function CartServices(req, res) {
         as: "category",
       },
     };
+
     let unwindCategoryStage = { $unwind: "$category" };
 
     let projectionStage = {
@@ -56,17 +58,18 @@ async function CartServices(req, res) {
       matchStage,
       JoinStageProduct,
       unwindProductStage,
-      JoinStageBrand,
-      unwindBrandStage,
+     JoinStageBrand,
+     unwindBrandStage,
       JoinStageCategory,
       unwindCategoryStage,
       projectionStage,
     ]);
 
-    res.send({ status: "successfull", data: data });
+    res.send({ status: "success", data: data });
   } catch (e) {
     res.send({ status: "fail", message: "Something Went Wrong !" });
   }
+
 }
 
 async function UpdateCartList(req, res) {

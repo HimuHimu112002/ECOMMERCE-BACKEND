@@ -1,15 +1,18 @@
 const {DecodeToken} = require("../utility/TokenHelper");
 
-module.exports=(req,res,next)=>{
+const auth = async(req,res,next)=>{
 
     // Receive Token
     let token = req.headers['token']
     if(!token){
-        token = req.cookies['token']
+        // token = req.cookies['token']
+        if (req.cookies && req.cookies['token']) {
+          token = req.cookies['token'];
+        }
     }
 
   // Token Decode
-  let decoded=DecodeToken(token)
+  let decoded = DecodeToken(token)
 
   // Request Header Email+UserID Add
   if(decoded === null){
@@ -23,3 +26,5 @@ module.exports=(req,res,next)=>{
     next();
   }
 }
+
+module.exports = auth

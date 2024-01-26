@@ -11,7 +11,7 @@ async function CreateBrandList(req, res) {
     })   
     brand.save()
     await ProductModel.findOneAndUpdate({_id: brand.brandid}, {$push:{brandID:brand._id}}, {new: true})
-    res.send({success: "Caterory Brand list Successfully"})
+    res.send({status: "success"})
     
 }
 

@@ -1,4 +1,4 @@
-const {ProductGet,GetProductDetails, GetProductSlide, GetProductBycategory, GetProductByBrand,GetProductByRemark,GetProductBySimiler,GetProductByKeyword} = require('../services/ProductServices')
+const {ProductGet,GetProductDetails, GetProductSlide, GetProductBycategory, GetProductByBrand,GetProductByRemark,GetProductBySimiler,GetProductByKeyword,ListByFilterService} = require('../services/ProductServices')
 const ProductModel = require('../model/ProductModel')
 const ProductDetails = require('../model/ProductDetails')
 const productslidersModel = require("../model/ProductSlideModel")
@@ -100,4 +100,10 @@ async function  ProductListByKeyword(req, res) {
     return res.status(200).json(result)
 }
 
-module.exports = {ProductCreate,GetAllProduct,productDelete,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,GetDiscription,ProductDiscription}
+async function ProductListByFilter(req,res){
+    let result=await ListByFilterService(req);
+    return res.status(200).json(result)
+}
+
+
+module.exports = {ProductCreate,GetAllProduct,productDelete,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,GetDiscription,ProductDiscription,ProductListByFilter}

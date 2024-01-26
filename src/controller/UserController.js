@@ -5,7 +5,7 @@ const ProfileModel = require("../model/ProfileModel")
 async function UserLogin(req, res){
     try{
 
-        const {email} = req.body;
+        let email=req.params.email;
         
         if(!email){
             res.send({error: "Please Enter Your Email"})
@@ -19,7 +19,7 @@ async function UserLogin(req, res){
                     {new: true}     
                 )
                 EmailSend(email, code)
-                return res.send({success: "Check your email you have recived otp code"})
+                res.send({status:"success", message:"6 Digit OTP has been send"})
             }else{
                 let code=Math.floor(100000+Math.random()*900000);
                 let user = new UserModel({
@@ -28,7 +28,7 @@ async function UserLogin(req, res){
                 })
                 user.save()
                 EmailSend(email, code)
-                res.send({success: "Registration Successfull Thank You"})
+                res.send({status:"success", message:"6 Digit OTP has been send"})
             }
             
         }

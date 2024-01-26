@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {ProductCreate,GetAllProduct,productDelete,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductDiscription,GetDiscription,ProductReview} = require('../controller/ProductController')
+const {ProductCreate,GetAllProduct,productDelete,ProductSliderList,GetProductSliderList,ProductListByBrand,ProductListByCategory,ProductListBySimiler,ProductListByKeyword,ProductDiscription,GetDiscription,ProductListByFilter,ProductReview} = require('../controller/ProductController')
 
 const {CreateCategory,GetCategoryList} = require('../controller/CategoryController')
 const {CreateBrandList,GetAllBrandList} = require('../controller/BrandController')
@@ -11,8 +11,8 @@ const {CreateRemark,GetRemarkList} = require('../controller/RemarkController')
 
 const {UserLogin,UserProfile,ReadProfile} = require('../controller/UserController');
 const { OtpMatchController,UserLogout} = require('../controller/OtpMatch');
-const Authentication = require('../middleware/Authentication');
-
+// const Authentication = require('../middleware/Authentication');
+const Authentication = require('../middleware/Authentication')
 
 const {WishList,SaveWishList,RemoveWishList} = require('../controller/WishListController')
 const {CartServices,UpdateCartList,SaveCart,RemoveCart} = require("../controller/CartLIstController")
@@ -27,7 +27,7 @@ router.get('/GetAllProduct',GetAllProduct)
 router.post('/productDelete/:id',productDelete)
 
 router.post('/ProductDiscription',ProductDiscription)
-router.get('/GetAllProductDiscription/:ProductID',GetDiscription)
+router.get('/ProductDetails/:ProductID',GetDiscription)
 
 router.post('/ProductSliderList',ProductSliderList)
 router.get('/GetProductSliderList',GetProductSliderList)
@@ -47,13 +47,15 @@ router.get('/ProductListByBrand/:BrangID',ProductListByBrand)
 router.get('/ProductListByKeyword/:Keyword',ProductListByKeyword)
 router.get('/ProductListBySimiler/:CategoryID',ProductListBySimiler)
 
+router.post('/ProductListByFilter',ProductListByFilter);
+
 router.post('/CreateRemark',CreateRemark)
 router.get('/GetRemarkList',GetRemarkList)
 
 
 //User API===========================
-router.post("/UserLogin",UserLogin)
-router.post("/OtpMatch/:email",OtpMatchController)
+router.post("/UserLogin/:email",UserLogin)
+router.post("/OtpMatch/:email/:otp",OtpMatchController)
 router.post("/UserLogout",Authentication,UserLogout)
 
 router.post("/CreateUserProfile",Authentication,UserProfile)
