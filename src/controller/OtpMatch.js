@@ -5,7 +5,6 @@ let OtpMatchController = async (req, res)=>{
     try {
         let email=req.params.email;
         let otp=req.params.otp;
-        console.log("email")
         // User Count
         let total=await UserModel.find({email:email,otp:otp}).count('total');
         if(total===1){

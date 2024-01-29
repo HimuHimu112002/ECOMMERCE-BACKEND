@@ -40,14 +40,16 @@ async function UserLogin(req, res){
 
 async function UserProfile(req, res){
     try {
+
         let user_id=req.headers.user_id;
         let reqBody=req.body;
         reqBody.userID=user_id;
         await ProfileModel.updateOne({userID:user_id},{$set:reqBody},{upsert:true})
         res.send({status:"success", message:"Profile Save Success"})
     }catch (e) {
-        res.send({status:"fail", message:"Something Went Wrong"})
+        res.send({status:"fail", message:"Something Went Wrong",})
     }
+
 }
 
 async function ReadProfile(req, res){
