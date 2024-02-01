@@ -42,7 +42,7 @@ async function CartServices(req, res) {
 
     let projectionStage = {
       $project: {
-        _id: 0,
+        _id: 1,
         userID: 0,
         createAt: 0,
         updatedAt: 0,

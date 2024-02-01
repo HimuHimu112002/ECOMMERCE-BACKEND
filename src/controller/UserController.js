@@ -38,6 +38,42 @@ async function UserLogin(req, res){
     
 }
 
+// async function UserGet(req, res){
+//     try{
+
+//         let email=req.params.email;
+        
+//         if(!email){
+//             res.send({error: "Please Enter Your Email"})
+//         }else{
+//             let duplicateEmail = await UserModel.find({email: email})
+//             if(duplicateEmail.length > 0){
+//                 let code=Math.floor(100000+Math.random()*900000);
+//                 await UserModel.findOneAndUpdate(
+//                     {email},
+//                     {$set: {otp:code}},
+//                     {new: true}     
+//                 )
+//                 EmailSend(email, code)
+//                 res.send({status:"success", message:"6 Digit OTP has been send"})
+//             }else{
+//                 let code=Math.floor(100000+Math.random()*900000);
+//                 let user = new UserModel({
+//                     email: email,
+//                     otp:code
+//                 })
+//                 user.save()
+//                 EmailSend(email, code)
+//                 res.send({status:"success", message:"6 Digit OTP has been send"})
+//             }
+            
+//         }
+//     }catch(e){
+//         res.send({status:"fail", message:"Something Went Wrong",e})
+//     }
+    
+// }
+
 async function UserProfile(req, res){
     try {
 
