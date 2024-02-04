@@ -103,6 +103,7 @@ async function RemoveCart(req, res) {
   try {
     let user_id = req.headers.user_id;
     let reqBody = req.body;
+    console.log(reqBody)
     reqBody.userID = user_id;
     await CartModel.deleteOne(reqBody);
     res.send({ status: "success", message: "Cart List Remove Success" });
